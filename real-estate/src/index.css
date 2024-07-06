@@ -3,3 +3,8 @@
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
+
+
+body{
+    background-color: rgb(241 ,245, 241);
+}
