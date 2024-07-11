@@ -15,7 +15,7 @@ export default function SignUp() {
 
   const handleSubmit = async(e) => {
   e.preventDefault()//prev ent refreshing page while submitting form 
-   const res = await fetch ('/api/auth/sign-up', {
+   const res = await fetch ('/api/auth/signup', {
       method:'POST',
       headers: {
         'Content-Type':'application/json',
