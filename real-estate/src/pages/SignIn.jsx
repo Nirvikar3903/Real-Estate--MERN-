@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {Link , useNavigate} from 'react-router-dom';
 
 
-export default function SignIp() {
+export default function SignIn() {
   const [formData , setFormData] = useState({}); 
   const [loading ,setLoading] = useState(false)
   const [error , setError ] = useState(null);
@@ -25,7 +25,7 @@ export default function SignIp() {
       
       setLoading(true);
     
-        const res = await fetch('/api/auth/signup', {
+        const res = await fetch('/api/auth/signin', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ export default function SignIp() {
 
   return (
     <div className='p-3 max-w-lg mx-auto' >
-      <h1 className='text-3xl text-center font-semibold my-7'>Sign up</h1>
+      <h1 className='text-3xl text-center font-semibold my-7'>Sign in</h1>
       <form disabled={loading} onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <input type='email' placeholder='email' className='border p-3 rounded-lg' id='email'onChange={handleChange}></input>
         <input type='password' placeholder='password' className='border p-3 rounded-lg' id='password'onChange={handleChange}></input>
