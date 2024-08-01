@@ -1,0 +1,22 @@
+// index.js (creating new route) 
+// app.use("/api/user" , userRouter )
+// app.use("/api/auth" ,authRouter)
+// app.use("/api/listing" ,listingRouter) ->  
+
+// create a new router in routes.js
+// 1.auth.route.js{
+// router.post("/signup" , signUp)  and all these function called auth.controller.js 
+// router.post("/signin" , signIn)  and all these function called auth.controller.js 
+// router.post("/google" , google)  and all these function called auth.controller.js 
+// router.get("/signout" , signOut) and all these function called auth.controller.js 
+// } 
+
+// 2.user.route.js{
+// router.get('/test', test)
+// router.post('/update/:id' ,verifyToken, updateUser ); and all these function called user.controller.js
+// router.delete('/delete/:id' ,verifyToken, deleteUser );and all these function called user.controller.js
+// }
+// 3.listing.js{
+
+// }
+// //make (function)createListing in folder controllers 
