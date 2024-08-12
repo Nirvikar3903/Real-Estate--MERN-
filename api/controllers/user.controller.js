@@ -42,7 +42,7 @@ export const deleteUser = async (req , res , next) => {
     .clearCookie ('access_token')
     .status(200)
     .json('User has been deleted !!');
-            
+             
         } catch (error) {
             next(error);
         }  
@@ -51,7 +51,7 @@ export const deleteUser = async (req , res , next) => {
 export const getUserListings = async(req , res ,next)=>{
     if(req.user.id === req.params.id)  {
         try {
-            const listings = await Listing.find({userRef : req.params.id});
+            const listings = await Listing.find({userRef : req.params.id});//userRef = req.params.id user authenticated 
             res.status(200).json(listings);
         
         } catch (error) {

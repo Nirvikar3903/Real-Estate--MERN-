@@ -2,12 +2,13 @@ import { useState } from 'react';
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage';
 import {app} from '../firebase'
 import { useSelector } from 'react-redux';
-
+import { useNavigate } from 'react-router-dom';
 export default function CreateListing() {
-    const {currentUser} = useSelector(state=>state.user);
+    const {currentUser } = useSelector(state=>state.user);
     const [files ,setFiles] = useState([]);
     const [error ,setError] = useState  (false);
     const [loading ,setLoading] =useState(false)
+    const navigate = useNavigate();
     const [formData , setFormData] = useState({
         imageUrls: [],
         name:'',
@@ -25,8 +26,9 @@ export default function CreateListing() {
     })
     const [uploading ,setUploading] = useState(false);
     const [imageUploadError , setImageUploadError] = useState(false); 
-    //console.log(files); to ensure which file is uploaded (photo)
+    //console.log(files); //to ensure which file is uploaded (photo)
     console.log(formData);
+
     const handleImageSubmit = (e)  =>{
         
         if(files.length >0 && files.length+formData.imageUrls.length < 7){
@@ -114,28 +116,32 @@ export default function CreateListing() {
             })
         }
     };
-    const handleSubmit = async() =>{
+    const handleSubmit = async(e) =>{
         e.preventDefault();
+
         try {
+            if(formData.imageUrls.length < 1) return setError('You must upload least one image');
+            if(+formData.regularPrice < +formData.discountedPrice ) return setError('discount price must be lower than regular price')// + is added to convert string into number 
             setLoading(true);
             setError(false);
-            const res = await fetch('/api/listing/create/' , {
+            const res = await fetch('/api/listing/create' , {
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json'
                 },
+
                 body:JSON.stringify({
                     ...formData,
-                    userRef : currentUser._id
+                    userRef:currentUser._id,
                 }),
-
             });
-            const data = await res.json;
-            setLoading(false);
+            const data = await res.json();
 
+            setLoading(false);
             if(data.success === false){
-                setError(data.message);
+                setError(data.error);
             }
+           navigate(`/listings/${data._id}`)
             
         } catch (error) {
             setError(error.message);
@@ -201,7 +207,7 @@ export default function CreateListing() {
                            type='number' 
                            id='regularPrice' 
                            min='450' 
-                           max='10000' 
+                           max='10000000' 
                            required 
                            className='p-3 border-gray-300 rounded-lg'
                            onChange={handleChange}
@@ -213,21 +219,24 @@ export default function CreateListing() {
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-2">
-                        <input 
-                            type='number' 
-                            id='discountedPrice' 
-                            min='50' 
-                            max='10000' 
-                            required 
-                            className='p-3 border-gray-300 rounded-lg'onChange={handleChange}
-                            value={formData.discountedPrice}
-                        />
-                        <div className="flex flex-col items-center">
-                            <p>Discounted price</p>
-                            <span className='text-xs' >(₹ / month)</span>
+                    {formData.offer &&  (
+                        
+                        <div className="flex items-center gap-2">
+                            <input 
+                                type='number' 
+                                id='discountedPrice'  
+                                min='0' 
+                                max='100000' 
+                                required 
+                                className='p-3 border-gray-300 rounded-lg'onChange={handleChange}
+                                value={formData.discountedPrice}
+                            />
+                            <div className="flex flex-col items-center">
+                                <p>Discounted price</p>
+                                <span className='text-xs' >(₹ / month)</span>
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
                 
             </div>
@@ -265,7 +274,7 @@ export default function CreateListing() {
                             </div>
                         ))
                     }
-            <button className='p-3 bg-slate-700 rounded-lg text-white uppercase hover:opacity-95 disabled:opacity-80' >
+            <button disabled={loading || uploading} className='p-3 bg-slate-700 rounded-lg text-white uppercase hover:opacity-95 disabled:opacity-80' >
                 {loading ? 'Creating...':'Create listing'}
             </button>
             {error && <p className='text-red-700 text-sm'>{error}</p>}
