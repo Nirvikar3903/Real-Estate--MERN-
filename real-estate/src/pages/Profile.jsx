@@ -165,11 +165,18 @@ export default function Profile() {
         return;
       }
 
-      //update the piece of state(userListing)
-      setUserListings((prev) => 
-        prev.filter((listing)=>listing._id !==listingId))//filter out everything we wanna get everything except the one with id of this id(listingId)
+      
+      /**
+       * update the piece of state(userListing)
+       * prev.filter((listing) => listing._id !== listingId):
+            prev represents the previous state of userListings.
+            The filter method creates a new array that includes all items (listings) that do not match the listingId of the deleted listing.
+            This effectively removes the deleted listing from the array.
+       **/ 
+      setUserListings((prev) => //delete and update 
+        prev.filter((listing)=>listing._id !==listingId))
     } catch (error) {
-      console.loh(error.message)
+      console.log(error.message)
     }
   };
 
