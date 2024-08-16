@@ -5,7 +5,7 @@ import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 import { useSelector } from 'react-redux';
 import 'swiper/css/bundle'
-import {FaBath, FaBed, FaMapMarkerAlt, FaParking, FaShare  } from 'react-icons/fa';
+import {FaBath, FaBed, FaChair, FaMapMarkerAlt, FaParking, FaShare  } from 'react-icons/fa';
 
 export default function Listing() {
   SwiperCore.use((Navigation));
