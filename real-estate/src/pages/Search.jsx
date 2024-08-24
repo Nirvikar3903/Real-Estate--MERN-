@@ -56,7 +56,7 @@ export default function Search() {
 
     const fetchListings = async() =>{
         setLoading(true);
-        setShowMore(false);
+        setShowMore(false);//to make disappear show more button before fetching
         const searchQuery = urlParams.toString();
         const res = await fetch(`/api/listing/get?${searchQuery}`);
         const data = await res.json();
