@@ -14,7 +14,7 @@ import {
   signOutUserStart,
   signOutUserFailure,
   signOutUserSuccess,
-  } from '../redux/user/UserSlice';
+  } from '../redux/user/userSlice';
 import Listing from '../../../api/models/listing.model';
 
 
