@@ -57,7 +57,7 @@ export default function Listing() {
               {listing.imageUrls.map((url) =>(
                 <SwiperSlide key={url}>
                     <div 
-                      className="h-[550px] " 
+                      className="h-[600px] " 
                       style={{
                         background:`url(${url}) center no-repeat`,
                         backgroundSize:'cover',
@@ -88,8 +88,8 @@ export default function Listing() {
                 <p className='text-2xl font-semibold'>
                   {listing.name} - ₹{' '}
                   {listing.offer
-                    ? listing.regularPrice.toLocaleString('en-US')
-                    : listing.discountedPrice.toLocaleString('en-US')}
+                    ? listing.discountedPrice.toLocaleString('en-US')
+                    : listing.regularPrice.toLocaleString('en-US')}
                   {listing.type === 'rent' && ' / month'}
                 </p>
                 <p className="text-slate-600 flex items-center text-sm mt-6 gap-2" >

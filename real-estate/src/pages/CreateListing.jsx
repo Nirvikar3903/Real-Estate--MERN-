@@ -136,12 +136,15 @@ export default function CreateListing() {
                 }),
             });
             const data = await res.json();
+            console.log(data);
 
             setLoading(false);
             if(data.success === false){
                 setError(data.error);
+            }else{
+
+                navigate(`/listing/${data._id}`)
             }
-           navigate(`/listings/${data._id}`)
             
         } catch (error) {
             setError(error.message);
