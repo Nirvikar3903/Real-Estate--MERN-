@@ -6,12 +6,15 @@ import authRouter from './routes/auth.route.js';
 import cookieParser from 'cookie-parser';
 import listingRouter from './routes/listing.route.js'
 dotenv.config();
+import path from 'path';
 
 mongoose.connect(process.env.MONGO).then(() => {
     console.log('Connected to MongoDB!');
 }).catch((err) =>{
     console.log(err);
 })
+
+const _dirname = path.resolve();
 
 const app = express();
  app.use(express.json());
@@ -26,6 +29,12 @@ app.listen(3000, () => {
 app.use("/api/user" , userRouter )
 app.use("/api/auth" ,authRouter)
 app.use("/api/listing" ,listingRouter)
+
+app.use( express.static(path.join(_dirname , '/real-estate/dist')));
+
+app.get('*' , (req,res) =>{
+    res.sendFile(path.join(_dirname, 'real-estate' , 'dist' ,'index.html'))
+})
 
 //middleware for controlling errors connected to index.js 
 app.use((err,req,res,next) => {
