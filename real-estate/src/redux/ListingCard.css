@@ -1,0 +1,12 @@
+/* Custom Swiper arrow styles */
+.custom-swiper-button-prev,
+.custom-swiper-button-next {
+  width: 20px; /* Set the size of the arrows */
+  height: 20px; /* Adjust as needed */
+  color: #000; /* Optional: Change arrow color */
+}
+
+.custom-swiper-button-prev::after,
+.custom-swiper-button-next::after {
+  font-size: 14px; /* Adjust the arrow icon size */
+}
